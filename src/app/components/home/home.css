@@ -64,13 +64,6 @@ h1 {
 	color: #bd4f36;
 	font-size: 18px;
 }
-.category-filter {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
-        
-}
 .section-heading {
 	display: flex;
 	align-items: end;
@@ -83,6 +76,13 @@ h1 {
 h2 { margin-bottom: 0; color: #173c3a; font: 400 38px/1 Georgia, 'Times New Roman', serif; letter-spacing: -0.03em; }
 .cart-status { margin: 0; color: #7a817a; font-size: 13px; }
 
+.catalog-tools { display: grid; grid-template-columns: minmax(220px, 1fr) 190px 190px; gap: 14px; margin-bottom: 18px; padding: 18px; background: #eeece2; }
+.catalog-tools label { display: flex; flex-direction: column; gap: 7px; color: #52615c; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.catalog-tools input, .catalog-tools select { width: 100%; border: 1px solid #d1d0c5; border-radius: 0; padding: 11px 12px; outline: 0; background: #f7f4ec; color: #173c3a; font: 400 13px 'DM Sans', sans-serif; }
+.catalog-tools input:focus, .catalog-tools select:focus { border-color: #bd4f36; box-shadow: 0 0 0 2px #bd4f3626; }
+.results-summary { display: flex; justify-content: space-between; min-height: 20px; margin-bottom: 16px; color: #7a817a; font-size: 12px; }
+.results-summary span:last-child { color: #bd4f36; }
+
 .product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px 18px; }
 .product-card { min-width: 0; }
 .image-wrap { position: relative; overflow: hidden; aspect-ratio: 1 / 1.08; background: #e5e3da; }
@@ -92,17 +92,31 @@ h2 { margin-bottom: 0; color: #173c3a; font: 400 38px/1 Georgia, 'Times New Roma
 .product-info { padding-top: 16px; }
 .product-info h3 { margin-bottom: 7px; color: #173c3a; font: 400 21px/1.1 Georgia, 'Times New Roman', serif; }
 .product-info p { min-height: 42px; margin-bottom: 16px; color: #68726b; font-size: 13px; line-height: 1.5; }
+.product-info .stock-status { display: flex; align-items: center; gap: 6px; min-height: auto; margin-bottom: 12px; color: #5f8b69; font-size: 11px; }
+.product-info .stock-status.stock-low { color: #bd4f36; }
+.stock-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; }
 .product-info button { display: flex; align-items: center; justify-content: space-between; width: 100%; border: 0; border-bottom: 1px solid #173c3a; padding: 0 0 9px; background: transparent; color: #173c3a; cursor: pointer; font: 700 11px/1 inherit; letter-spacing: 0.09em; text-align: left; text-transform: uppercase; }
 .product-info button span { color: #bd4f36; font-size: 20px; font-weight: 400; line-height: 10px; }
 .product-info button:hover { color: #bd4f36; }
+.product-info button:disabled { border-color: #c5c5bc; color: #999b91; cursor: not-allowed; }
+.empty-state { display: flex; grid-column: 1 / -1; flex-direction: column; gap: 8px; padding: 60px 20px; border: 1px dashed #c8c7bb; color: #7a817a; text-align: center; }
+.empty-state strong { color: #173c3a; font: 400 26px Georgia, 'Times New Roman', serif; }
+.pagination { display: flex; justify-content: center; gap: 8px; margin-top: 42px; }
+.pagination button { min-width: 34px; height: 34px; border: 1px solid #d1d0c5; padding: 0 10px; background: transparent; color: #52615c; cursor: pointer; font-size: 11px; }
+.pagination button:hover:not(:disabled), .pagination button.current-page { border-color: #173c3a; background: #173c3a; color: #f7f4ec; }
+.pagination button:disabled { color: #b2b4aa; cursor: not-allowed; }
 
 @media (max-width: 850px) {
 	.home-shell { padding: 52px 20px 72px; }
 	.intro { align-items: start; flex-direction: column; padding-bottom: 56px; }
+	.catalog-tools { grid-template-columns: 1fr 1fr; }
+	.search-field { grid-column: 1 / -1; }
 	.product-grid { grid-template-columns: repeat(2, 1fr); gap: 34px 16px; }
 }
 
 @media (max-width: 480px) {
 	.section-heading { align-items: start; flex-direction: column; gap: 14px; }
+	.catalog-tools { grid-template-columns: 1fr; }
+	.search-field { grid-column: auto; }
 	.product-grid { grid-template-columns: 1fr; }
 }

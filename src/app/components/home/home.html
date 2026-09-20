@@ -17,20 +17,39 @@
 				<p class="eyebrow">Curated for you</p>
 				<h2 id="catalog-title">The collection</h2>
 			</div>
-			<p class="cart-status" aria-live="polite/">{{ cartCount() }} {{ cartCount() === 1 ? 'item' : 'items' }} in your bag</p>
+			<p class="cart-status" aria-live="polite">{{ cartCount() }} {{ cartCount() === 1 ? 'item' : 'items' }} in your bag · ${{ totalPrice().toFixed(2) }}</p>
 		</div>
-          <h3>cartcount: {{cartCount()}}</h3>
-          <p>Total: ${{ totalPrice().toFixed(2) }}</p>  
-          <p>selectedcategory : {{selectedCategoryId()}}</p>
-           <input type="number" min="1"  (change)="updateCategory($event.target.value)" />
-          <div class="category-filters">
-           <select [(ngModel)]="selectedCategoryId">
-            <option value="">All Categories</option>
-            <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
-            </select>
-          </div>
+
+		<div class="catalog-tools" aria-label="Catalog filters">
+			<label class="search-field">
+				<span>Search products</span>
+				<input #searchInput type="search" [value]="searchTerm()" (input)="updateSearch(searchInput.value)" placeholder="Try “watch” or “home”" />
+			</label>
+			<label>
+				<span>Category</span>
+				<select #categorySelect [value]="selectedCategoryId() ?? ''" (change)="updateCategory(categorySelect.value ? +categorySelect.value : null)">
+					@for (category of categories; track category.name) {
+						<option [value]="category.id ?? ''">{{ category.name }}</option>
+					}
+				</select>
+			</label>
+			<label>
+				<span>Sort by</span>
+				<select #sortSelect [value]="sortOption()" (change)="updateSort(sortSelect.value)">
+					<option value="featured">Featured</option>
+					<option value="price-low">Price: low to high</option>
+					<option value="price-high">Price: high to low</option>
+				</select>
+			</label>
+		</div>
+
+		<div class="results-summary">
+			<span>{{ filteredProducts().length }} products found</span>
+			<span *ngIf="searchTerm() || selectedCategoryId() !== null">Filters are active</span>
+		</div>
+
 		<div class="product-grid">
-			@for (product of products; track product.title) {
+			@for (product of paginatedProducts(); track product.title) {
 				<article class="product-card">
 					<div class="image-wrap">
 						<img [src]="product.image" [alt]="product.title" />
@@ -39,17 +58,28 @@
 					<div class="product-info">
 						<h3>{{ product.title }}</h3>
 						<p>{{ product.description }}</p>
+						<p class="stock-status" [ngClass]="{ 'stock-low': product.quantity < 3 }">
+							<span class="stock-dot" [ngStyle]="{ 'background-color': product.quantity < 3 ? '#bd4f36' : '#5f8b69' }"></span>
+							{{ product.quantity < 3 ? 'Low stock' : 'In stock' }} · {{ product.quantity }} available
+						</p>
 						<p class="price">${{ product.price.toFixed(2) }}</p>
-						<button type="button" >Add to cart <span aria-hidden="true">+</span></button>
+						<button type="button" [disabled]="product.quantity === 0" (click)="addToCart(product)">
+							{{ product.quantity === 0 ? 'Sold out' : 'Add to cart' }} <span aria-hidden="true">+</span>
+						</button>
 					</div>
-                    <div> 
-                    <input type="number" min="1" #quantity value="1" />
-                    <!-- Event binding to call the addToCartAndCalculate method with the quantity and product price -->
-                    <button type="button" (click)="addToCartAndCalculate(quantity.value,product.price)">Add to cart <span aria-hidden="true">+</span></button>
-                    </div>
-                    
 				</article>
 			}
+			@empty {
+				<div class="empty-state"><strong>No products found.</strong><span>Try another search or clear the filters.</span></div>
+			}
 		</div>
+
+		<nav class="pagination" *ngIf="filteredProducts().length > pageSize" aria-label="Product pages">
+				<button type="button" [disabled]="currentPage() === 1" (click)="goToPage(currentPage() - 1)">Previous</button>
+				@for (page of pageNumbers(); track page) {
+					<button type="button" [class.current-page]="currentPage() === page" [attr.aria-current]="currentPage() === page ? 'page' : null" (click)="goToPage(page)">{{ page }}</button>
+				}
+				<button type="button" [disabled]="currentPage() === totalPages()" (click)="goToPage(currentPage() + 1)">Next</button>
+		</nav>
 	</section>
 </main>

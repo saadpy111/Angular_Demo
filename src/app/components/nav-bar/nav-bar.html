@@ -1,9 +1,15 @@
 <nav class="navbar" aria-label="Main navigation">
   <a class="brand" href="#top" aria-label="Sunday Supply home"><span class="brand-symbol">S</span> Sunday Supply</a>
   <div class="nav-links">
-    <a href="#catalog-title">Shop all</a>
-    <a href="#catalog-title">New in</a>
-    <a href="#footer">Our story</a>
+    <a *ngFor="let link of links" [href]="link.href" [ngClass]="{ 'active-link': activeLink() === link.label }" [attr.aria-current]="activeLink() === link.label ? 'page' : null" (click)="selectLink(link.label)">{{ link.label }}</a>
   </div>
-  <button class="bag-button" type="button" aria-label="Shopping bag">Bag <span>0</span></button>
+  <div class="auth-buttons">
+    <ng-container *ngIf="!isLoggedIn(); else accountMenu">
+      <button type="button" class="login-button" (click)="login()">Sign in</button>
+    </ng-container>
+    <ng-template #accountMenu>
+      <span class="welcome">Welcome back</span>
+      <button type="button" class="login-button" (click)="logout()">Sign out</button>
+    </ng-template>
+  </div>
 </nav>

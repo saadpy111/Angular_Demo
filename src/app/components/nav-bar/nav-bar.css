@@ -2,8 +2,12 @@
 .brand { display: flex; align-items: center; gap: 10px; color: #173c3a; font: 700 16px/1 Georgia, 'Times New Roman', serif; text-decoration: none; }
 .brand-symbol { display: grid; width: 28px; height: 28px; place-items: center; border-radius: 50%; background: #bd4f36; color: #f7f4ec; font-size: 14px; }
 .nav-links { display: flex; gap: 30px; margin-left: auto; }
-.nav-links a, .bag-button { color: #52615c; font: 700 11px/1 inherit; letter-spacing: 0.1em; text-decoration: none; text-transform: uppercase; }
-.nav-links a:hover { color: #bd4f36; }
+.nav-links a, .login-button { color: #52615c; font: 700 11px/1 inherit; letter-spacing: 0.1em; text-decoration: none; text-transform: uppercase; }
+.nav-links a { padding-bottom: 7px; border-bottom: 1px solid transparent; }
+.nav-links a:hover, .nav-links a.active-link { border-color: #bd4f36; color: #bd4f36; }
 .bag-button { border: 0; border-bottom: 1px solid #173c3a; padding: 0 0 7px; background: transparent; cursor: pointer; }
-.bag-button span { margin-left: 5px; color: #bd4f36; }
+.login-button { border: 0; border-bottom: 1px solid #173c3a; padding: 0 0 7px; background: transparent; cursor: pointer; }
+.login-button:hover { color: #bd4f36; }
+.auth-buttons { display: flex; align-items: center; gap: 12px; }
+.welcome { color: #7a817a; font-size: 11px; }
 @media (max-width: 600px) { .navbar { padding: 18px 20px; } .nav-links { display: none; } }
