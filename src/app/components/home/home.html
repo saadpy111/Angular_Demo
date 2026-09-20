@@ -1,0 +1,55 @@
+<main class="home-shell">
+	<section class="intro" aria-labelledby="collection-title">
+		<div>
+			<p class="eyebrow">The Sunday edit / 2026</p>
+			<h1 id="collection-title">Objects with a point of view.</h1>
+			<p class="intro-copy">A considered collection of useful, beautiful things for the way you live now.</p>
+		</div>
+		<div class="collection-note">
+			<span class="note-mark">✦</span>
+			<span>Small batch<br />big feeling</span>
+		</div>
+	</section>
+
+	<section class="catalog" aria-labelledby="catalog-title">
+		<div class="section-heading">
+			<div>
+				<p class="eyebrow">Curated for you</p>
+				<h2 id="catalog-title">The collection</h2>
+			</div>
+			<p class="cart-status" aria-live="polite/">{{ cartCount() }} {{ cartCount() === 1 ? 'item' : 'items' }} in your bag</p>
+		</div>
+          <h3>cartcount: {{cartCount()}}</h3>
+          <p>Total: ${{ totalPrice().toFixed(2) }}</p>  
+          <p>selectedcategory : {{selectedCategoryId()}}</p>
+           <input type="number" min="1"  (change)="updateCategory($event.target.value)" />
+          <div class="category-filters">
+           <select [(ngModel)]="selectedCategoryId">
+            <option value="">All Categories</option>
+            <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+            </select>
+          </div>
+		<div class="product-grid">
+			@for (product of products; track product.title) {
+				<article class="product-card">
+					<div class="image-wrap">
+						<img [src]="product.image" [alt]="product.title" />
+						<span class="category">{{ product.category }}</span>
+					</div>
+					<div class="product-info">
+						<h3>{{ product.title }}</h3>
+						<p>{{ product.description }}</p>
+						<p class="price">${{ product.price.toFixed(2) }}</p>
+						<button type="button" >Add to cart <span aria-hidden="true">+</span></button>
+					</div>
+                    <div> 
+                    <input type="number" min="1" #quantity value="1" />
+                    <!-- Event binding to call the addToCartAndCalculate method with the quantity and product price -->
+                    <button type="button" (click)="addToCartAndCalculate(quantity.value,product.price)">Add to cart <span aria-hidden="true">+</span></button>
+                    </div>
+                    
+				</article>
+			}
+		</div>
+	</section>
+</main>

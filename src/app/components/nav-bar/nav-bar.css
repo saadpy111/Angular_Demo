@@ -1,0 +1,9 @@
+.navbar { display: flex; align-items: center; justify-content: space-between; gap: 24px; max-width: 1240px; margin: 0 auto; padding: 22px 32px; border-bottom: 1px solid #d9d7ce; }
+.brand { display: flex; align-items: center; gap: 10px; color: #173c3a; font: 700 16px/1 Georgia, 'Times New Roman', serif; text-decoration: none; }
+.brand-symbol { display: grid; width: 28px; height: 28px; place-items: center; border-radius: 50%; background: #bd4f36; color: #f7f4ec; font-size: 14px; }
+.nav-links { display: flex; gap: 30px; margin-left: auto; }
+.nav-links a, .bag-button { color: #52615c; font: 700 11px/1 inherit; letter-spacing: 0.1em; text-decoration: none; text-transform: uppercase; }
+.nav-links a:hover { color: #bd4f36; }
+.bag-button { border: 0; border-bottom: 1px solid #173c3a; padding: 0 0 7px; background: transparent; cursor: pointer; }
+.bag-button span { margin-left: 5px; color: #bd4f36; }
+@media (max-width: 600px) { .navbar { padding: 18px 20px; } .nav-links { display: none; } }
