@@ -1,0 +1,25 @@
+	<div class="product-grid">
+			@for (product of filteredProducts; track product.title) {
+				<article class="product-card">
+					<div class="image-wrap">
+						<img [src]="product.image" [alt]="product.title" />
+						<span class="category">{{ product.category }}</span>
+					</div>
+					<div class="product-info" >
+						<h3>{{ product.title }}</h3>
+						<p>{{ product.description }}</p>	
+						<!-- <p class="stock-status" [ngClass]="{ 'stock-low': product.quantity < 3 }">
+							<span class="stock-dot" [ngStyle]="{ 'background-color': product.quantity < 3 ? '#bd4f36' : '#5f8b69' }"></span>
+							{{ product.quantity < 3 ? 'Low stock' : 'In stock' }} · {{ product.quantity }} available
+						</p> -->
+						<p class="price">${{ product.price}}</p>
+						<button type="button" [disabled]="product.quantity === 0" (click)="addToCart(product)">
+							{{ product.quantity === 0 ? 'Sold out' : 'Add to cart' }} <span aria-hidden="true">+</span>
+						</button>
+					</div>
+				</article>
+			}
+			@empty {
+				<div class="empty-state"><strong>No products found.</strong><span>Try another search or clear the filters.</span></div>
+			}
+		</div>  
