@@ -16,6 +16,9 @@
 						<button type="button" [disabled]="product.quantity === 0" (click)="addToCart(product)">
 							{{ product.quantity === 0 ? 'Sold out' : 'Add to cart' }} <span aria-hidden="true">+</span>
 						</button>
+						<button>
+							<a class="btn " routerLink="/products/{{ product.id }}">View Details</a>
+						</button>
 					</div>
 				</article>
 			}

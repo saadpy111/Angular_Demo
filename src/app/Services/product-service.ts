@@ -122,8 +122,8 @@ export class ProductService
   GetProducts(): Product_info[] {
     return this.products;
   }
-  GetProductById(id: number): Product_info | undefined {
-    return this.products.find(product => product.id === id);
+  GetProductById(id: number): Product_info | null {
+    return this.products.find(product => product.id === id) || null;
   }
  GetProductsByCategory(categoryId: number): Product_info[] {
     if (categoryId === 0) {

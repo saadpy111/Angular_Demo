@@ -1,5 +1,6 @@
 import { Component, computed, EventEmitter, Input, OnChanges, Output, output, signal, SimpleChanges } from '@angular/core';
 import { ProductService } from '../../Services/product-service';
+import { RouterLink } from '@angular/router';
 
 interface Product_info {
     id: number;
@@ -12,7 +13,7 @@ interface Product_info {
   quantity: number;
 }
 @Component({
-  imports: [],
+  imports: [RouterLink],
   selector: 'app-product',
   styleUrl: './product.css',
   templateUrl: './product.html',
