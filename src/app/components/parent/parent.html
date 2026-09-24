@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container mt-5 bg-info p-5 mg-5">
+        <input class="form-control mg-3" type="text" placeholder="Enter number..."   [(ngModel)]="num1" />
+        <input class="form-control mg-3" type="text" placeholder="Enter number..."   [(ngModel)]="num2" />
+    </div>
+    <div>
+            <app-child [num1]="num1" [num2]="num2" (sumchange)="calcSquare($event)"></app-child>
+
+    </div>
+    <h1 #squareid class="alert alert-warning mg-3">Square : {{ squre }}</h1>
+</body>
+</html>
