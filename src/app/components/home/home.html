@@ -19,7 +19,10 @@
 				<p class="eyebrow">Curated for you</p>
 				<h2 id="catalog-title">The collection</h2>
 			</div>
-			<p class="cart-status" aria-live="polite">{{ cartCount() }} {{ cartCount() === 1 ? 'item' : 'items' }} in your bag · ${{ totalPrice.toFixed(2) }}</p>
+			<div class="cart-status" aria-live="polite">
+				<strong>{{ cartCount() }} {{ cartCount() === 1 ? 'item' : 'items' }}</strong>
+				<span>in your bag · ${{ totalPrice.toFixed(2) }}</span>
+			</div>
 		</div>
 
 		<div class="catalog-tools" aria-label="Catalog filters">
@@ -34,32 +37,15 @@
 						<option [ngValue]="category.id">{{ category.name }}</option>
 					}
 				</select>
-			
 			</label>
-			<!-- <label>
-				<span>Sort by</span>
-				<select #sortSelect [value]="sortOption()" (change)="updateSort(sortSelect.value)">
-					<option value="featured">Featured</option>
-					<option value="price-low">Price: low to high</option>
-					<option value="price-high">Price: high to low</option>
-				</select>
-			</label> -->
+			<button class="clear-button" type="button" (click)="clearFilters()">Clear filters</button>
 		</div>
 
-		<!-- <div class="results-summary">
-			<span>{{ filteredProducts().length }} products found</span>
-			<span *ngIf="searchTerm() || selectedCategoryId() !== null">Filters are active</span>
-		</div> -->
+		<div class="results-summary">
+			<span>Browse the full Sunday edit</span>
+			<span>{{ searchTerm || selectedCategoryId !== 0 ? 'Filters are active' : 'All pieces' }}</span>
+		</div>
 
 	   <app-product  [selectedCategoryId]="selectedCategoryId" [searchTerm]="searchTerm" (totalPriceChange)="changetotalprice($event)" ></app-product>
-         <h1>Total:${{totalPrice}}</h1>
-<!-- 	   
-		<nav class="pagination" *ngIf="filteredProducts().length > pageSize" aria-label="Product pages">
-				<button type="button" [disabled]="currentPage() === 1" (click)="goToPage(currentPage() - 1)">Previous</button>
-				@for (page of pageNumbers(); track page) {
-					<button type="button" [class.current-page]="currentPage() === page" [attr.aria-current]="currentPage() === page ? 'page' : null" (click)="goToPage(page)">{{ page }}</button>
-				}
-				<button type="button" [disabled]="currentPage() === totalPages()" (click)="goToPage(currentPage() + 1)">Next</button>
-		</nav> -->
 	</section>
 </main>

@@ -1,10 +1,20 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, signal } from '@angular/core';
+import { Contactusdetails } from '../contactusdetails/contactusdetails';
 
 @Component({
-  imports: [RouterOutlet],
+  imports: [Contactusdetails],
   selector: 'app-footer',
   styleUrl: './footer.css',
   templateUrl: './footer.html',
 })
-export class Footer {}
+export class Footer {
+  protected readonly contactOpen = signal(false);
+
+  protected toggleContact(): void {
+    this.contactOpen.update((isOpen) => !isOpen);
+  }
+
+  protected closeContact(): void {
+    this.contactOpen.set(false);
+  }
+}

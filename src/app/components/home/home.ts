@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HighLightCard } from '../../Directives/high-light-card';
 import { PowPipe } from '../../Pipes/pow-pipe';
 import { Product } from '../product/product';
 
@@ -12,7 +11,7 @@ interface Category {
 }
 
 @Component({
-  imports: [FormsModule, CommonModule, HighLightCard, PowPipe, Product],
+  imports: [FormsModule, CommonModule, PowPipe, Product],
   selector: 'app-home',
   styleUrl: './home.css',
   templateUrl: './home.html',
@@ -21,8 +20,8 @@ export class Home {
   protected readonly currentDate = new Date();
   protected readonly cartCount = signal(0);
   protected  totalPrice :number = 0;
-  protected readonly searchTerm :string = '';
-  protected readonly selectedCategoryId = 0 ;
+  protected searchTerm = '';
+  protected selectedCategoryId = 0;
   protected readonly sortOption = signal('featured');
   protected readonly currentPage = signal(1);
   protected readonly pageSize = 4;
@@ -39,5 +38,10 @@ export class Home {
 
 changetotalprice(event: number) {
   this.totalPrice = event;
+}
+
+clearFilters(): void {
+  this.searchTerm = '';
+  this.selectedCategoryId = 0;
 }
 }

@@ -1,0 +1,9 @@
+
+.contact-details { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; border-top: 1px solid #41605b; padding: 28px 0; }
+.contact-kicker, .contact-label { margin: 0 0 10px; color: #d8a65d; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.contact-details h2 { max-width: 360px; margin: 0; color: #f4f0e5; font: 400 30px/1.05 Georgia, 'Times New Roman', serif; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.contact-grid a, .contact-grid p { margin: 0; color: #e9e6da; font-size: 13px; line-height: 1.6; text-decoration: none; }
+.contact-grid a:hover { color: #d8a65d; }
+.contact-label { display: block; color: #9eb0a5; }
+@media (max-width: 650px) { .contact-details, .contact-grid { grid-template-columns: 1fr; gap: 24px; } }

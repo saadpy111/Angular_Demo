@@ -8,17 +8,15 @@
 					<div class="product-info" >
 						<h3>{{ product.title }}</h3>
 						<p>{{ product.description }}</p>	
-						<!-- <p class="stock-status" [ngClass]="{ 'stock-low': product.quantity < 3 }">
-							<span class="stock-dot" [ngStyle]="{ 'background-color': product.quantity < 3 ? '#bd4f36' : '#5f8b69' }"></span>
+						<p class="stock-status" [class.stock-low]="product.quantity < 3">
+							<span class="stock-dot" [style.background-color]="product.quantity < 3 ? '#bd4f36' : '#5f8b69'"></span>
 							{{ product.quantity < 3 ? 'Low stock' : 'In stock' }} · {{ product.quantity }} available
-						</p> -->
-						<p class="price">${{ product.price}}</p>
+						</p>
+						<p class="price">${{ product.price.toFixed(2) }}</p>
 						<button type="button" [disabled]="product.quantity === 0" (click)="addToCart(product)">
 							{{ product.quantity === 0 ? 'Sold out' : 'Add to cart' }} <span aria-hidden="true">+</span>
 						</button>
-						<button>
-							<a class="btn " routerLink="/products/{{ product.id }}">View Details</a>
-						</button>
+						<a class="detail-link" [routerLink]="['/products', product.id]">View details <span aria-hidden="true">→</span></a>
 					</div>
 				</article>
 			}

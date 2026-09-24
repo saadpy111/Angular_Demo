@@ -1,9 +1,9 @@
-		.bg_img {
-			background: url(
-'https://media.geeksforgeeks.org/wp-content/uploads/20240226131034/2142357.jpg');
-			height: 400px;
-			width: 100%;
-			background-repeat: no-repeat;
-			background-position: center;
-			background-size: contain;
-		}
+.error-shell { display: grid; grid-template-columns: minmax(180px, .6fr) minmax(280px, 1fr); align-items: center; gap: 8vw; max-width: 1000px; min-height: 62vh; margin: 0 auto; padding: 64px 32px; }
+.error-mark { color: #d8a65d; font: 400 clamp(110px, 20vw, 240px)/.8 Georgia, 'Times New Roman', serif; letter-spacing: -.08em; }
+.eyebrow { margin: 0 0 16px; color: #bd4f36; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.error-copy h1 { max-width: 520px; margin: 0 0 20px; color: #173c3a; font: 400 clamp(42px, 6vw, 76px)/.95 Georgia, 'Times New Roman', serif; }
+.error-copy > p:not(.eyebrow) { max-width: 420px; margin: 0 0 30px; color: #52615c; font-size: 16px; line-height: 1.7; }
+.error-copy a { display: inline-flex; justify-content: space-between; min-width: 250px; border-bottom: 1px solid #173c3a; padding-bottom: 10px; color: #173c3a; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-decoration: none; text-transform: uppercase; }
+.error-copy a span { color: #bd4f36; font-size: 18px; }
+.error-copy a:hover { color: #bd4f36; }
+@media (max-width: 650px) { .error-shell { grid-template-columns: 1fr; gap: 40px; min-height: 58vh; padding: 56px 20px; } .error-mark { font-size: 120px; } }

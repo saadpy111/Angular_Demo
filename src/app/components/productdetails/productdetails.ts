@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { ProductService } from '../../Services/product-service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 interface Product_info {
     id: number;
   image: string;
@@ -12,7 +12,7 @@ interface Product_info {
   quantity: number;
 }
 @Component({
-  imports: [],
+  imports: [RouterLink],
   selector: 'app-productdetails',
   styleUrl: './productdetails.css',
   templateUrl: './productdetails.html',
@@ -42,5 +42,10 @@ export class Productdetails implements OnInit
   }
 
      protected  product :Product_info | null = null;
+     protected readonly addedToBag = signal(false);
+
+     protected addToBag(): void {
+       this.addedToBag.set(true);
+     }
 
  }

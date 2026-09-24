@@ -74,12 +74,15 @@ h1 {
 
 .section-heading .eyebrow { margin-bottom: 10px; }
 h2 { margin-bottom: 0; color: #173c3a; font: 400 38px/1 Georgia, 'Times New Roman', serif; letter-spacing: -0.03em; }
-.cart-status { margin: 0; color: #7a817a; font-size: 13px; }
+.cart-status { display: flex; flex-direction: column; gap: 4px; margin: 0; color: #7a817a; font-size: 13px; text-align: right; }
+.cart-status strong { color: #173c3a; font-size: 16px; font-weight: 700; }
 
 .catalog-tools { display: grid; grid-template-columns: minmax(220px, 1fr) 190px 190px; gap: 14px; margin-bottom: 18px; padding: 18px; background: #eeece2; }
 .catalog-tools label { display: flex; flex-direction: column; gap: 7px; color: #52615c; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
 .catalog-tools input, .catalog-tools select { width: 100%; border: 1px solid #d1d0c5; border-radius: 0; padding: 11px 12px; outline: 0; background: #f7f4ec; color: #173c3a; font: 400 13px 'DM Sans', sans-serif; }
 .catalog-tools input:focus, .catalog-tools select:focus { border-color: #bd4f36; box-shadow: 0 0 0 2px #bd4f3626; }
+.clear-button { align-self: end; border: 0; border-bottom: 1px solid #bd4f36; padding: 0 0 7px; background: transparent; color: #bd4f36; cursor: pointer; font: 700 10px/1 inherit; letter-spacing: .1em; text-align: left; text-transform: uppercase; }
+.clear-button:hover { color: #173c3a; border-color: #173c3a; }
 .results-summary { display: flex; justify-content: space-between; min-height: 20px; margin-bottom: 16px; color: #7a817a; font-size: 12px; }
 .results-summary span:last-child { color: #bd4f36; }
 
@@ -110,6 +113,7 @@ h2 { margin-bottom: 0; color: #173c3a; font: 400 38px/1 Georgia, 'Times New Roma
 	.home-shell { padding: 52px 20px 72px; }
 	.intro { align-items: start; flex-direction: column; padding-bottom: 56px; }
 	.catalog-tools { grid-template-columns: 1fr 1fr; }
+	.clear-button { align-self: center; }
 	.search-field { grid-column: 1 / -1; }
 	.product-grid { grid-template-columns: repeat(2, 1fr); gap: 34px 16px; }
 }

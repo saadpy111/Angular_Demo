@@ -5,7 +5,9 @@
 .footer-brand span { color: #d8a65d; font-size: 18px; }
 .footer-copy { margin: 0; color: #b7c2b9; font-size: 14px; line-height: 1.6; }
 .footer-links { display: flex; align-items: start; gap: 28px; }
-.footer-links a { color: #e9e6da; font-size: 11px; letter-spacing: 0.08em; text-decoration: none; text-transform: uppercase; }
-.footer-links a:hover { color: #d8a65d; }
+.footer-links button, .contact-close { border: 0; padding: 0; background: transparent; color: #e9e6da; cursor: pointer; font: inherit; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+.footer-links button:hover, .contact-close:hover { color: #d8a65d; }
+.contact-drawer { margin-top: 24px; }
+.contact-close { display: block; margin-left: auto; border-bottom: 1px solid #d8a65d; padding-bottom: 6px; color: #d8a65d; font-size: 10px; }
 .footer-bottom { justify-content: space-between; border-top: 1px solid #41605b; padding-top: 16px; color: #9eb0a5; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
 @media (max-width: 600px) { .footer { padding: 48px 20px 20px; } .footer-main { flex-direction: column; padding-bottom: 42px; } .footer-links { flex-wrap: wrap; gap: 16px; } .footer-bottom { gap: 16px; flex-direction: column; } }

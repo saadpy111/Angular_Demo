@@ -5,11 +5,16 @@
 			<p class="footer-copy">Good things, thoughtfully gathered.<br />Made for slower, better days.</p>
 		</div>
 		<div class="footer-links">
-			<a href="#catalog-title">Instagram</a>
-			<a href="#catalog-title">Contact</a>
-			<a href="#catalog-title">Shipping & returns</a>
+			<button type="button" (click)="toggleContact()" [attr.aria-expanded]="contactOpen()">Instagram</button>
+			<button type="button" (click)="toggleContact()" [attr.aria-expanded]="contactOpen()">Contact</button>
+			<button type="button" (click)="toggleContact()" [attr.aria-expanded]="contactOpen()">Shipping & returns</button>
 		</div>
 	</div>
+	@if (contactOpen()) {
+		<div class="contact-drawer">
+			<app-contactusdetails></app-contactusdetails>
+			<button class="contact-close" type="button" (click)="closeContact()">Close panel</button>
+		</div>
+	}
 	<div class="footer-bottom"><span>© 2026 Sunday Supply</span><span>Made with intention</span></div>
-	<router-outlet></router-outlet>
 </footer>
