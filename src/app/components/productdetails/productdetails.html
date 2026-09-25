@@ -16,6 +16,11 @@
 						</button>
 						<p class="availability">{{ selectedProduct.quantity }} available · Ships within 2–3 days</p>
 					</div>
+                    <div>
+                        <button class="btn btn-success m-lg-2 "  (click)="goBack()">Back</button>
+                        <button class="btn btn-dark    m-lg-2 "  (click)="goToPrevious()">Previous</button>
+                        <button class="btn btn-primary m-lg-2"   (click)="goToNext()">Next</button>
+                    </div>
 				</article>
 	</div>
 	} @else {

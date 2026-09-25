@@ -141,7 +141,20 @@ export class ProductService
       product.description.toLowerCase().includes(lowerCaseSearchTerm)
     );
   }
-
+GetTheNextProductID(currentProductId: number): number | null {
+    const currentIndex = this.products.findIndex(product => product.id === currentProductId);
+    if (currentIndex !== -1 && currentIndex < this.products.length - 1) {
+      return this.products[currentIndex + 1].id;
+    }
+    return null;
+  }
+  GetThePreviousProductID(currentProductId: number): number | null {
+    const currentIndex = this.products.findIndex(product => product.id === currentProductId);
+    if (currentIndex > 0) {
+      return this.products[currentIndex - 1].id;
+    }
+    return null;
+  }
   GetProductsBySortOption(sortOption: string): Product_info[] {
     switch (sortOption) {
       case 'price-asc':
