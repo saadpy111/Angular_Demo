@@ -1,36 +1,32 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
+import { BehaviorSubject, single } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  subject: BehaviorSubject<boolean>;
+  private readonly _isLoggedIn = signal(
+ this.isUserLoggedin()
+  );
 
+ readonly isloggedIn = this._isLoggedIn.asReadonly();
+ 
   constructor() {
-    this.subject = new BehaviorSubject<boolean>(
-      this.isLoggedin()
-    );
-  }
-
-  behaviourSubject() {
-    return this.subject;
   }
 
   login() {
     localStorage.setItem('token', 'fghjkfghjghjdfghjgfd');
-    this.subject.next(true);
+    this._isLoggedIn.set(true);
   }
 
   logout() {
     localStorage.removeItem('token');
-    this.subject.next(false);
+    this._isLoggedIn.set(false);
   }
 
-  isLoggedin(): boolean {
+  isUserLoggedin(): boolean {
     const item = localStorage.getItem('token');
-
     return item !== null;
   }
 }

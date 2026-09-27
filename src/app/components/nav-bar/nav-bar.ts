@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { AuthService } from '../../Services/auth-service';
 import { validate } from '@angular/forms/signals';
 
@@ -15,8 +15,7 @@ interface NavLink {
   templateUrl: './nav-bar.html',
 })
 
-export class NavBar implements OnInit {
-  protected isLoggedIn =  signal(false) ;
+export class NavBar {
 
 
   protected readonly activeLink = signal('Shop all');
@@ -25,17 +24,11 @@ export class NavBar implements OnInit {
     { label: 'New in', href: '#catalog-title' },
     { label: 'Our story', href: '#footer' },
   ];
-  constructor(private _auth:AuthService){
-      
-  }
-  ngOnInit(): void {
-    this._auth.behaviourSubject().subscribe({
-      next: (value) => {
-        this.isLoggedIn.set(value);
-     
-      },
-    });
-  }
+  private readonly _auth = inject(AuthService);
+
+protected readonly isLoggedIn = this._auth.isloggedIn;  
+  
+
 
   protected selectLink(label: string): void {
     this.activeLink.set(label);
