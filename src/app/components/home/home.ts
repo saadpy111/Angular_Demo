@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PowPipe } from '../../Pipes/pow-pipe';
 import { Product } from '../product/product';
+import { Observable, Subscription } from 'rxjs';
+import { NotificationService } from '../../Services/notification-service';
 
 
 interface Category {
@@ -10,13 +12,14 @@ interface Category {
   name: string;
 }
 
+
 @Component({
   imports: [FormsModule, CommonModule, PowPipe, Product],
   selector: 'app-home',
   styleUrl: './home.css',
   templateUrl: './home.html',
 })
-export class Home {
+export class Home  implements OnInit  , OnDestroy {
   protected readonly currentDate = new Date();
   protected readonly cartCount = signal(0);
   protected  totalPrice :number = 0;
@@ -35,6 +38,36 @@ export class Home {
     { id: 6, name: 'Tech' },
     { id: 7, name: 'Travel' },
   ];
+
+
+ subscription!:Subscription ;
+constructor(private _notificationService:NotificationService)
+{
+   
+
+}
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+  ngOnInit(): void {
+    this.subscription = this._notificationService.getnoteifications().subscribe({
+  next: (notification) => {
+    console.log('Notification:', notification);
+  },
+  error: (error) => {
+    console.error('Error:', error);
+  },
+  complete: () => {
+    console.log('All notifications received.');
+  }
+});
+
+  }
+
+
+
+
+
 
 changetotalprice(event: number) {
   this.totalPrice = event;

@@ -4,12 +4,7 @@
     <a *ngFor="let link of links" [href]="link.href" [ngClass]="{ 'active-link': activeLink() === link.label }" [attr.aria-current]="activeLink() === link.label ? 'page' : null" (click)="selectLink(link.label)">{{ link.label }}</a>
   </div>
   <div class="auth-buttons">
-    <ng-container *ngIf="!isLoggedIn(); else accountMenu">
-      <button type="button" class="login-button" (click)="login()">Sign in</button>
-    </ng-container>
-    <ng-template #accountMenu>
-      <span class="welcome">Welcome back</span>
-      <button type="button" class="login-button" (click)="logout()">Sign out</button>
-    </ng-template>
+     <span *ngIf="!isLoggedIn()">Sign in</span>
+     <span *ngIf="isLoggedIn()" >Sign out</span>
   </div>
 </nav>
