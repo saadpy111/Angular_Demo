@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { AuthService } from '../../Services/auth-service';
 import { validate } from '@angular/forms/signals';
+import { RouterLink } from '@angular/router';
 
 interface NavLink {
   label: string;
@@ -9,7 +10,7 @@ interface NavLink {
 }
 
 @Component({
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   selector: 'app-navbar',
   styleUrl: './nav-bar.css',
   templateUrl: './nav-bar.html',

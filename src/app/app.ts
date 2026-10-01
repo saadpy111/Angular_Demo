@@ -1,6 +1,5 @@
 import { Component, signal } from '@angular/core';
 import { NavBar } from './components/nav-bar/nav-bar';
-import { Home } from './components/home/home';
 import { Footer } from './components/footer/footer';
 import { RouterOutlet } from '@angular/router';
 

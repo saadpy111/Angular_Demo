@@ -1,5 +1,10 @@
+	@if (loading()) {
+		<p class="loading-state">Loading products...</p>
+	} @else if (loadError()) {
+		<p class="empty-state">Products could not be loaded. Please try again.</p>
+	} @else {
 	<div class="product-grid">
-			@for (product of filteredProducts; track product.title) {
+			@for (product of filteredProducts(); track product.title) {
 				<article class="product-card">
 					<div class="image-wrap">
 						<img [src]="product.image" [alt]="product.title" />
@@ -23,4 +28,5 @@
 			@empty {
 				<div class="empty-state"><strong>No products found.</strong><span>Try another search or clear the filters.</span></div>
 			}
-		</div>  
+		</div>
+	}

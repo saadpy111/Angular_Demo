@@ -1,16 +1,16 @@
 <nav class="navbar" aria-label="Main navigation">
   <a class="brand" href="#top" aria-label="Sunday Supply home"><span class="brand-symbol">S</span> Sunday Supply</a>
   <div class="nav-links">
-    <a *ngFor="let link of links" [href]="link.href" [ngClass]="{ 'active-link': activeLink() === link.label }" [attr.aria-current]="activeLink() === link.label ? 'page' : null" (click)="selectLink(link.label)">{{ link.label }}</a>
+    <a routerLink="home" >Home</a>
+    <a routerLink="products" >Products</a>
+    <a routerLink="auth" >Auth</a>
+    
+    <a *ngIf="!isLoggedIn()"  routerLink="auth" >Login</a>
   </div>
+
 <div class="auth-buttons">
-
-  <span *ngIf="!isLoggedIn()">
-    Sign in
-  </span>
-
   <span *ngIf="isLoggedIn()">
-    Sign out
+    <h3>Hello Mr.Saad</h3>
   </span>
 
 </div>

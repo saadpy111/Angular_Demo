@@ -1,4 +1,4 @@
-	@if (product; as selectedProduct) {
+	@if (product(); as selectedProduct) {
 	<div class="product-detail-shell">
 		<a class="back-link" routerLink="/home">← Back to collection</a>
 		<article class="product-detail-card">
@@ -23,6 +23,8 @@
                     </div>
 				</article>
 	</div>
-	} @else {
+	} @else if (loading()) {
 		<p class="loading-state">Finding that piece...</p>
+	} @else if (loadError()) {
+		<p class="loading-state">Product details could not be loaded.</p>
 	}

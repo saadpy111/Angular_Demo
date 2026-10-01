@@ -28,13 +28,13 @@
 		<div class="catalog-tools" aria-label="Catalog filters">
 			<label class="search-field">
 				<span>Search products</span>
-				<input #searchInput type="search" [(ngModel)]="searchTerm" placeholder="Try “watch” or “home”" />
+				<input #searchInput type="search" [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)" placeholder="Try “watch” or “home”" />
 			</label>
 			<label>
 				<span>Category</span>
-				<select #categorySelect  [(ngModel)]="selectedCategoryId" >
-					@for (category of categories; track category.id) {
-						<option [ngValue]="category.id">{{ category.name }}</option>
+				<select #categorySelect [ngModel]="selectedCategoryId()" (ngModelChange)="updateCategory($event)">
+					@for (category of categories(); track category.id) {
+						<option [value]="category.id">{{ category.name }}</option>
 					}
 				</select>
 			</label>
@@ -43,9 +43,9 @@
 
 		<div class="results-summary">
 			<span>Browse the full Sunday edit</span>
-			<span>{{ searchTerm || selectedCategoryId !== 0 ? 'Filters are active' : 'All pieces' }}</span>
+			<span>{{ searchTerm() || selectedCategoryId() !== 0 ? 'Filters are active' : 'All pieces' }}</span>
 		</div>
 
-	   <app-product  [selectedCategoryId]="selectedCategoryId" [searchTerm]="searchTerm" (totalPriceChange)="changetotalprice($event)" ></app-product>
+	   <app-product [selectedCategoryId]="selectedCategoryId()" [searchTerm]="searchTerm()" (totalPriceChange)="changetotalprice($event)"></app-product>
 	</section>
 </main>
