@@ -4,11 +4,29 @@ import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { IProduct } from '../Models/IProduct';
 
+export type ProductInput = Omit<IProduct, 'id'>;
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
   private readonly http = inject(HttpClient);
 
+  addProduct(product: ProductInput): Observable<IProduct> {
+    return this.http.post<IProduct>(`${environment.apiUrl}/products`, product).pipe(
+      map((createdProduct) => this.normalizeProduct(createdProduct)),
+    );
+  }
+
+  updateProduct(id: number, product: ProductInput): Observable<IProduct> {
+    return this.http.put<IProduct>(`${environment.apiUrl}/products/${id}`, product).pipe(
+      map((updatedProduct) => this.normalizeProduct(updatedProduct)),
+    );
+  }
+
+  deleteProduct(id: number): Observable<IProduct> {
+    return this.http.delete<IProduct>(`${environment.apiUrl}/products/${id}`).pipe(
+      map((deletedProduct) => this.normalizeProduct(deletedProduct)),
+    );
+  }
 
   GetProducts(): Observable<IProduct[]> {
     return this.http.get<IProduct[]>(`${environment.apiUrl}/products`).pipe(

@@ -12,6 +12,15 @@ describe('ProductService', () => {
     { id: 2, title: 'Sun Frame', image: '', description: 'Bright days', category: 'Accessories', price: 39.99, categoryId: 2, quantity: 3 },
     { id: 3, title: 'Day Pack', image: '', description: 'Carry essentials', category: 'Travel', price: 49.99, categoryId: 7, quantity: 2 },
   ];
+  const productInput = {
+    title: 'New Tote',
+    image: '/tote.jpg',
+    description: 'A useful tote',
+    category: 'Travel',
+    price: 35,
+    categoryId: 7,
+    quantity: 4,
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -43,6 +52,38 @@ describe('ProductService', () => {
     let result: (typeof products)[number] | null = null;
     service.GetProductById(2).subscribe((value) => result = value);
     httpTestingController.expectOne('http://localhost:3000/products/2').flush({ ...products[1], id: '2' });
+
+    expect(result).toEqual(products[1]);
+  });
+
+  it('should create a product and normalize the returned values', () => {
+    let result: (typeof products)[number] | undefined;
+    service.addProduct(productInput).subscribe((value) => result = value);
+    const request = httpTestingController.expectOne('http://localhost:3000/products');
+    expect(request.request.method).toBe('POST');
+    expect(request.request.body).toEqual(productInput);
+    request.flush({ ...productInput, id: '4', price: '35', categoryId: '7', quantity: '4' });
+
+    expect(result).toEqual({ ...productInput, id: 4 });
+  });
+
+  it('should update a product and normalize the returned values', () => {
+    let result: (typeof products)[number] | undefined;
+    service.updateProduct(2, productInput).subscribe((value) => result = value);
+    const request = httpTestingController.expectOne('http://localhost:3000/products/2');
+    expect(request.request.method).toBe('PUT');
+    expect(request.request.body).toEqual(productInput);
+    request.flush({ ...productInput, id: '2', price: '35' });
+
+    expect(result).toEqual({ ...productInput, id: 2 });
+  });
+
+  it('should delete a product', () => {
+    let result: (typeof products)[number] | undefined;
+    service.deleteProduct(2).subscribe((value) => result = value);
+    const request = httpTestingController.expectOne('http://localhost:3000/products/2');
+    expect(request.request.method).toBe('DELETE');
+    request.flush({ ...products[1], id: '2' });
 
     expect(result).toEqual(products[1]);
   });

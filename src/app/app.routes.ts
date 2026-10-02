@@ -5,6 +5,7 @@ import { Productdetails } from './components/productdetails/productdetails';
 import { AuthComponent } from './components/auth-component/auth-component';
 import { authGuard } from './Guards/auth-guard';
 import { Home } from './components/home/home';
+import { Admin } from './components/admin/admin';
 
 export const routes: Routes 
 =
@@ -13,6 +14,7 @@ export const routes: Routes
     {path: 'home', component: Home},
     {path: 'products', component : Product , canActivate : [authGuard]},
     {path: 'products/:id', component : Productdetails},
+    {path: 'admin', component: Admin, canActivate: [authGuard]},
     {path: 'errorpage', component : Errorpage},
     {path: 'auth', component : AuthComponent},
     {path: '**', redirectTo: 'home', pathMatch: 'full'},

@@ -1,0 +1,129 @@
+<main class="admin-layout">
+  <aside class="admin-sidebar" aria-label="Admin navigation">
+    <a class="sidebar-brand" routerLink="/home"><span class="brand-mark">S</span><span>Sunday Supply<small>ADMIN STUDIO</small></span></a>
+    <p class="sidebar-label">WORKSPACE</p>
+    <button class="sidebar-link selected" type="button" aria-current="page">
+      <span class="nav-icon" aria-hidden="true">▦</span> Products
+      <span class="nav-count">{{ products().length }}</span>
+    </button>
+    <button class="sidebar-link add-link" type="button" (click)="openNewProduct()">
+      <span class="nav-icon" aria-hidden="true">＋</span> Add a product
+    </button>
+  </aside>
+
+  <section class="admin-main">
+    <header class="admin-header">
+      <div class="breadcrumb">Workspace <span>/</span> Products</div>
+      <a class="store-link" routerLink="/home"><span aria-hidden="true">↗</span> View storefront</a>
+    </header>
+
+    <div class="page-content">
+      <section class="page-intro">
+        <div>
+          <p class="eyebrow">YOUR COLLECTION</p>
+          <h1>Products <span class="heading-sparkle" aria-hidden="true">✳</span></h1>
+          <p class="intro-copy">A little order goes a long way. Curate the pieces on your storefront.</p>
+        </div>
+        <button class="primary-button" type="button" (click)="openNewProduct()">
+          <span aria-hidden="true">＋</span> Add product
+        </button>
+      </section>
+
+      <div class="stat-strip">
+        <div><span class="stat-label">TOTAL PRODUCTS</span><strong>{{ products().length }}</strong></div>
+        <div><span class="stat-label">IN STOCK</span><strong>{{ products().filter(product => product.quantity > 0).length }}</strong></div>
+        <div><span class="stat-label">LOW STOCK</span><strong class="low-count">{{ products().filter(product => product.quantity > 0 && product.quantity < 4).length }}</strong></div>
+      </div>
+
+      @if (successMessage()) {
+        <p class="feedback success" role="status">{{ successMessage() }}</p>
+      }
+      @if (errorMessage()) {
+        <p class="feedback error" role="alert">{{ errorMessage() }}</p>
+      }
+
+      <section class="catalog-panel" aria-labelledby="catalog-heading">
+        <div class="panel-heading">
+          <div><h2 id="catalog-heading">Your catalog</h2><p>Manage the pieces your customers see.</p></div>
+          <span class="product-total">{{ products().length }} items</span>
+        </div>
+
+        @if (loading()) {
+          <p class="table-message">Loading your products…</p>
+        } @else if (productsLoadError()) {
+          <p class="table-message" role="alert">Your catalog couldn’t be loaded. Refresh the page to try again.</p>
+        } @else if (products().length === 0) {
+          <div class="empty-catalog"><span aria-hidden="true">✳</span><h3>A fresh start</h3><p>Add your first product to bring your store to life.</p><button class="primary-button" type="button" (click)="openNewProduct()">Add your first product</button></div>
+        } @else {
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th>PRODUCT</th><th>CATEGORY</th><th>PRICE</th><th>INVENTORY</th><th class="actions-heading">ACTIONS</th></tr></thead>
+              <tbody>
+                @for (product of products(); track product.id) {
+                  <tr>
+                    <td><div class="product-cell"><img [src]="product.image || 'https://placehold.co/96x96/f0eee6/173c3a?text=SS'" [alt]="product.title" /><div><strong>{{ product.title }}</strong><span>{{ product.description }}</span></div></div></td>
+                    <td><span class="category-pill">{{ product.category }}</span></td>
+                    <td class="price-cell">${{ product.price.toFixed(2) }}</td>
+                    <td><span class="stock-pill" [class.stock-low]="product.quantity > 0 && product.quantity < 4" [class.stock-out]="product.quantity === 0"><span></span>{{ product.quantity === 0 ? 'Out of stock' : product.quantity + ' in stock' }}</span></td>
+                    <td><div class="row-actions">
+                      <button class="action-button edit-action" type="button" (click)="editProduct(product)" [attr.aria-label]="'Edit ' + product.title"><span aria-hidden="true">✎</span> Edit</button>
+                      <button class="action-button delete-action" type="button" (click)="confirmDelete(product)" [attr.aria-label]="'Delete ' + product.title"><span aria-hidden="true">⌫</span></button>
+                    </div></td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+      </section>
+    </div>
+  </section>
+</main>
+
+@if (editorOpen()) {
+  <div class="overlay" (click)="closeEditor()">
+    <section class="editor-panel" role="dialog" aria-modal="true" aria-labelledby="editor-heading" (click)="$event.stopPropagation()">
+      <header class="editor-header">
+        <div><p class="eyebrow">{{ editingProductId === null ? 'GROW YOUR COLLECTION' : 'REFINE YOUR COLLECTION' }}</p><h2 id="editor-heading">{{ editingProductId === null ? 'Add a product' : 'Edit product' }}</h2></div>
+        <button class="close-button" type="button" aria-label="Close editor" (click)="closeEditor()">×</button>
+      </header>
+      <form #productForm="ngForm" (ngSubmit)="saveProduct()">
+        <label>Product name<input name="title" [(ngModel)]="draft.title" required maxlength="100" placeholder="e.g. The Sunday Tote" /></label>
+        <label>Description<textarea name="description" [(ngModel)]="draft.description" required rows="3" maxlength="500" placeholder="What makes this one special?"></textarea></label>
+        <div class="form-row">
+          <label>Category
+            <select name="category" [ngModel]="draft.category" (ngModelChange)="updateCategory($event)" required>
+              <option value="" disabled>Select a category</option>
+              @for (category of categories(); track category.id) {
+                <option [value]="category.name">{{ category.name }}</option>
+              }
+            </select>
+          </label>
+        </div>
+        <label>Image URL<input name="image" type="url" [(ngModel)]="draft.image" required placeholder="https://…" /></label>
+        <div class="form-row">
+          <label>Price <span class="input-prefix">$</span><input class="with-prefix" name="price" type="number" [(ngModel)]="draft.price" required min="0.01" step="0.01" /></label>
+          <label>Quantity<input name="quantity" type="number" [(ngModel)]="draft.quantity" required min="0" step="1" /></label>
+        </div>
+        @if (categoriesError()) { <p class="form-error" role="alert">Categories could not be loaded. Try refreshing before adding a product.</p> }
+        @if (errorMessage()) { <p class="form-error" role="alert">{{ errorMessage() }}</p> }
+        <footer class="editor-actions">
+          <button class="secondary-button" type="button" (click)="closeEditor()">Cancel</button>
+          <button class="primary-button" type="submit" [disabled]="productForm.invalid || saving() || categoriesError()">{{ saving() ? 'Saving…' : editingProductId === null ? 'Add product' : 'Save changes' }}</button>
+        </footer>
+      </form>
+    </section>
+  </div>
+}
+
+@if (productToDelete(); as product) {
+  <div class="overlay confirm-overlay" (click)="cancelDelete()">
+    <section class="confirm-card" role="alertdialog" aria-modal="true" aria-labelledby="delete-heading" (click)="$event.stopPropagation()">
+      <span class="confirm-mark" aria-hidden="true">!</span>
+      <p class="eyebrow">A QUICK CHECK</p>
+      <h2 id="delete-heading">Remove this piece?</h2>
+      <p><strong>{{ product.title }}</strong> will be removed from your catalog. This can’t be undone.</p>
+      <div class="confirm-actions"><button class="secondary-button" type="button" (click)="cancelDelete()" [disabled]="deleting()">Keep product</button><button class="danger-button" type="button" (click)="deleteProduct()" [disabled]="deleting()">{{ deleting() ? 'Removing…' : 'Remove product' }}</button></div>
+    </section>
+  </div>
+}

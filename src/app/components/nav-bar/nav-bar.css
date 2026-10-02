@@ -5,6 +5,9 @@
 .nav-links a, .login-button { color: #52615c; font: 700 11px/1 inherit; letter-spacing: 0.1em; text-decoration: none; text-transform: uppercase; }
 .nav-links a { padding-bottom: 7px; border-bottom: 1px solid transparent; }
 .nav-links a:hover, .nav-links a.active-link { border-color: #bd4f36; color: #bd4f36; }
+.nav-links .admin-link { display: inline-grid; width: 30px; height: 30px; place-items: center; margin-top: -7px; border: 1px solid #d9d7ce; border-radius: 50%; color: #173c3a; }
+.admin-link svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.6; }
+.nav-links .admin-link:hover { border-color: #bd4f36; color: #bd4f36; }
 .bag-button { border: 0; border-bottom: 1px solid #173c3a; padding: 0 0 7px; background: transparent; cursor: pointer; }
 .login-button { border: 0; border-bottom: 1px solid #173c3a; padding: 0 0 7px; background: transparent; cursor: pointer; }
 .login-button:hover { color: #bd4f36; }
