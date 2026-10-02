@@ -29,7 +29,7 @@ export class ProductService {
   }
 
   GetProducts(): Observable<IProduct[]> {
-    return this.http.get<IProduct[]>(`${environment.apiUrl}/products`).pipe(
+    return this.http.get<IProduct[]>(`${environment.apiUrl}/products`,).pipe(
       map((products) => products.map((product) => this.normalizeProduct(product))),
     );
   }
@@ -48,7 +48,8 @@ export class ProductService {
 
   GetProductsByCategory(categoryId: number): Observable<IProduct[]> {
     if (categoryId === 0) return this.GetProducts();
-    const params = new HttpParams().set('categoryId', categoryId);
+      const params  = new HttpParams();
+   params.append('categoryId', categoryId.toString());
     return this.http.get<IProduct[]>(`${environment.apiUrl}/products`, { params }).pipe(
       map((products) => products.map((product) => this.normalizeProduct(product))),
     );

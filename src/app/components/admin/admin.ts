@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IProduct } from '../../Models/IProduct';
 import { CategoryInfo, CategoryService } from '../../Services/category-service';
 import { ProductInput, ProductService } from '../../Services/product-service';
+import { interval } from 'rxjs';
 
 function createEmptyProduct(): ProductInput {
   return {
@@ -42,6 +43,8 @@ export class Admin implements OnInit {
   protected readonly productToDelete = signal<IProduct | null>(null);
   protected editingProductId: number | null = null;
   protected draft = createEmptyProduct();
+
+
 
   ngOnInit(): void {
     this.loadProducts();
