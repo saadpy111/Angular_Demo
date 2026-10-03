@@ -11,12 +11,12 @@ export const routes: Routes
 =
  [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
-    {path: 'home', component: Home},
-    {path: 'products', component : Product , canActivate : [authGuard]},
-    {path: 'products/:id', component : Productdetails},
-    {path: 'admin', component: Admin, canActivate: [authGuard]},
-    {path: 'errorpage', component : Errorpage},
-    {path: 'auth', component : AuthComponent},
-    {path: '**', redirectTo: 'home', pathMatch: 'full'},
+    {path: 'home', loadComponent : () => import('./components/home/home').then(m => m.Home)},
+    {path: 'products', loadComponent : () => import('./components/product/product').then(m => m.Product), canActivate : [authGuard]},
+    {path: 'products/:id', loadComponent : () => import('./components/productdetails/productdetails').then(m => m.Productdetails), canActivate : [authGuard]},
+    {path: 'admin',  loadComponent : () => import('./components/admin/admin').then(m => m.Admin)},
+    {path: 'errorpage', loadComponent : () => import('./components/errorpage/errorpage').then(m => m.Errorpage)},
+    {path: 'auth',  loadComponent : () => import('./components/auth-component/auth-component').then(m => m.AuthComponent)},
+    {path: '**', redirectTo: 'home', pathMatch: 'full'}
     
  ];
