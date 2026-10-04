@@ -1,0 +1,94 @@
+<div class="modal-backdrop">
+
+  <div class="product-modal">
+
+    <div class="modal-header">
+
+      <h2>Add New Product</h2>
+
+      <button
+        type="button"
+        class="close-btn"
+        (click)="close.emit()">
+        ×
+      </button>
+
+    </div>
+
+    <form (ngSubmit)="submit()" #productForm="ngForm">
+
+      <div class="form-group">
+
+        <label>Product Name</label>
+
+        <input
+          type="text"
+          [(ngModel)]="product.title"
+          name="title"
+          required
+        >
+
+      </div>
+
+      <div class="form-group">
+
+        <label>Description</label>
+
+        <textarea
+          [(ngModel)]="product.description"
+          name="description">
+        </textarea>
+
+      </div>
+
+      <div class="form-group">
+
+        <label>Price</label>
+
+        <input
+          type="number"
+          [(ngModel)]="product.price"
+          name="price"
+          required
+          #priceInput = 'ngModel'
+        >
+ @if (priceInput.invalid && priceInput.touched) {
+        <div class="error-message">
+          Price is required and must be a number.
+        </div>  
+    }
+    
+      </div>
+
+      <div class="form-group">
+
+        <label>Quantity</label>
+
+        <input
+          type="number"
+          [(ngModel)]="product.quantity"
+          name="quantity"
+          required
+        >
+
+      </div>
+
+      <div class="modal-actions">
+
+        <button
+          type="button"
+          (click)="close.emit()">
+          Cancel
+        </button>
+
+        <button type="submit" [disabled]="productForm.invalid">
+          Add Product
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

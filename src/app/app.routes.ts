@@ -17,6 +17,7 @@ export const routes: Routes
     {path: 'admin',  loadComponent : () => import('./components/admin/admin').then(m => m.Admin)},
     {path: 'errorpage', loadComponent : () => import('./components/errorpage/errorpage').then(m => m.Errorpage)},
     {path: 'auth',  loadComponent : () => import('./components/auth-component/auth-component').then(m => m.AuthComponent)},
+    {path: 'dashboard', loadComponent : () => import('./components/dashboard/dashboard-component/dashboard-component').then(m => m.DashboardComponent)},
     {path: '**', redirectTo: 'home', pathMatch: 'full'}
     
  ];

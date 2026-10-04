@@ -111,16 +111,6 @@
       "quantity": 3
     },
     {
-      "id": "9",
-      "image": "https://images.unsplash.com/photo-1585386959984-a41552231693?auto=format&fit=crop&w=900&q=85",
-      "title": "Cloud Cream",
-      "description": "A rich daily moisturizer with a fresh botanical finish.",
-      "category": "Wellness",
-      "price": 24.99,
-      "categoryId": 4,
-      "quantity": 3
-    },
-    {
       "id": "10",
       "image": "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=900&q=85",
       "title": "Shape Vase",
@@ -129,6 +119,36 @@
       "price": 79.99,
       "categoryId": 5,
       "quantity": 2
+    },
+    {
+      "id": "5u47cj753nM",
+      "image": "",
+      "title": "new product",
+      "description": "new product description",
+      "category": "",
+      "price": 123,
+      "categoryId": 0,
+      "quantity": 11
+    },
+    {
+      "id": "QNVSzz1qjSE",
+      "image": "",
+      "title": "",
+      "description": "",
+      "category": "",
+      "price": 0,
+      "categoryId": 0,
+      "quantity": 0
+    },
+    {
+      "id": "KdKThq2T7qs",
+      "image": "",
+      "title": "عطر رجالي",
+      "description": "عطور ماء الدهب",
+      "category": "",
+      "price": 3,
+      "categoryId": 0,
+      "quantity": 3
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
