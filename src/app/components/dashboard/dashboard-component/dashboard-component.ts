@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IProduct } from '../../../Models/IProduct';
-import { ProductService } from '../../../Services/product-service';
+import { ProductInput, ProductService } from '../../../Services/product-service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AddProductModal } from '../../add-product-modal/add-product-modal/add-product-modal';
 
@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit
   }
 
 
-protected addProduct(product: IProduct): void {
+protected addProduct(product: ProductInput): void {
 
   this.productService.addProduct(product)
     .pipe(takeUntilDestroyed(this.destroyRef))
@@ -63,7 +63,7 @@ protected addProduct(product: IProduct): void {
 }
      deleteProduct(productId: string): void 
      {
-         this.productService.deleteProduct(Number(productId)).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+         this.productService.deleteProduct(productId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
             next : (data) => {
               this.products.update((currentProducts) => currentProducts.filter((p) => p.id !== data.id));
             },

@@ -41,7 +41,7 @@ export class Admin implements OnInit {
   protected readonly successMessage = signal('');
   protected readonly editorOpen = signal(false);
   protected readonly productToDelete = signal<IProduct | null>(null);
-  protected editingProductId: number | null = null;
+  protected editingProductId: string | null = null;
   protected draft = createEmptyProduct();
 
 

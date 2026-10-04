@@ -17,7 +17,7 @@ describe('Productdetails', () => {
         provideHttpClient(),
         provideHttpClientTesting(),
         provideRouter([]),
-        { provide: ActivatedRoute, useValue: { paramMap: of(convertToParamMap({ id: '1' })) } },
+        { provide: ActivatedRoute, useValue: { paramMap: of(convertToParamMap({ id: 'product-1' })) } },
       ],
     }).compileComponents();
 
@@ -25,8 +25,8 @@ describe('Productdetails', () => {
     component = fixture.componentInstance;
     httpTestingController = TestBed.inject(HttpTestingController);
     fixture.detectChanges();
-    httpTestingController.expectOne('http://localhost:3000/products/1').flush({
-      id: 1,
+    httpTestingController.expectOne('http://localhost:3000/products/product-1').flush({
+      id: 'product-1',
       title: 'Sample product',
       image: '',
       description: '',

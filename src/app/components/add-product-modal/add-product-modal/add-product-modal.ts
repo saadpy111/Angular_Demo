@@ -1,7 +1,7 @@
 import { Component, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IProduct } from '../../../Models/IProduct';
+import { ProductInput } from '../../../Services/product-service';
 
 @Component({
   imports: [CommonModule, FormsModule],
@@ -13,11 +13,10 @@ export class AddProductModal {
 
   close = output<void>();
 
-  productAdded = output<IProduct>();
+  productAdded = output<ProductInput>();
 
 
-  product: IProduct = {
-    id: 0,
+  product: ProductInput = {
     image: '',
     title: '',
     description: '',

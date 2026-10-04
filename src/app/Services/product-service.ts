@@ -16,14 +16,14 @@ export class ProductService {
     );
   }
 
-  updateProduct(id: number, product: ProductInput): Observable<IProduct> {
-    return this.http.put<IProduct>(`${environment.apiUrl}/products/${id}`, product).pipe(
+  updateProduct(id: string, product: ProductInput): Observable<IProduct> {
+    return this.http.put<IProduct>(`${environment.apiUrl}/products/${encodeURIComponent(id)}`, product).pipe(
       map((updatedProduct) => this.normalizeProduct(updatedProduct)),
     );
   }
 
-  deleteProduct(id: number): Observable<IProduct> {
-    return this.http.delete<IProduct>(`${environment.apiUrl}/products/${id}`).pipe(
+  deleteProduct(id: string): Observable<IProduct> {
+    return this.http.delete<IProduct>(`${environment.apiUrl}/products/${encodeURIComponent(id)}`).pipe(
       map((deletedProduct) => this.normalizeProduct(deletedProduct)),
     );
   }
@@ -34,8 +34,8 @@ export class ProductService {
     );
   }
 
-  GetProductById(id: number): Observable<IProduct | null> {
-    return this.http.get<IProduct>(`${environment.apiUrl}/products/${id}`).pipe(
+  GetProductById(id: string): Observable<IProduct | null> {
+    return this.http.get<IProduct>(`${environment.apiUrl}/products/${encodeURIComponent(id)}`).pipe(
       map((product) => this.normalizeProduct(product)),
       catchError((error: unknown) => {
         if (typeof error === 'object' && error !== null && 'status' in error && error.status === 404) {
@@ -48,8 +48,7 @@ export class ProductService {
 
   GetProductsByCategory(categoryId: number): Observable<IProduct[]> {
     if (categoryId === 0) return this.GetProducts();
-      const params  = new HttpParams();
-   params.append('categoryId', categoryId.toString());
+    const params = new HttpParams().set('categoryId', categoryId.toString());
     return this.http.get<IProduct[]>(`${environment.apiUrl}/products`, { params }).pipe(
       map((products) => products.map((product) => this.normalizeProduct(product))),
     );
@@ -66,7 +65,7 @@ export class ProductService {
     )));
   }
 
-  GetTheNextProductID(currentProductId: number): Observable<number | null> {
+  GetTheNextProductID(currentProductId: string): Observable<string | null> {
     return this.GetProducts().pipe(map((products) => {
       const currentIndex = products.findIndex((product) => product.id === currentProductId);
       return currentIndex >= 0 && currentIndex < products.length - 1
@@ -75,7 +74,7 @@ export class ProductService {
     }));
   }
 
-  GetThePreviousProductID(currentProductId: number): Observable<number | null> {
+  GetThePreviousProductID(currentProductId: string): Observable<string | null> {
     return this.GetProducts().pipe(map((products) => {
       const currentIndex = products.findIndex((product) => product.id === currentProductId);
       return currentIndex > 0 ? products[currentIndex - 1].id : null;
@@ -100,7 +99,7 @@ export class ProductService {
   private normalizeProduct(product: IProduct): IProduct {
     return {
       ...product,
-      id: Number(product.id),
+      id: String(product.id),
       categoryId: Number(product.categoryId),
       price: Number(product.price),
       quantity: Number(product.quantity),

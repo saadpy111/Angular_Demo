@@ -13,7 +13,7 @@ import { ProductService } from '../../Services/product-service';
 })
 export class Productdetails implements OnInit
  {
-  protected readonly currentProductId = signal<number | null>(null);
+  protected readonly currentProductId = signal<string | null>(null);
   protected readonly product = signal<IProduct | null>(null);
   protected readonly loading = signal(true);
   protected readonly loadError = signal(false);
@@ -51,11 +51,11 @@ goBack(): void {
 
   ngOnInit(): void {
     this.route.paramMap.pipe(
-      map((params) => Number(params.get('id'))),
+      map((params) => params.get('id')),
       switchMap((productId) => {
         this.loading.set(true);
         this.loadError.set(false);
-        if (!Number.isInteger(productId) || productId <= 0) return of(null);
+        if (!productId?.trim()) return of(null);
         return this._productService.GetProductById(productId);
       }),
       takeUntilDestroyed(this.destroyRef),
