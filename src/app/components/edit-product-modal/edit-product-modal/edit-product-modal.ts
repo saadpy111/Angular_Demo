@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, input, OnInit, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IProduct } from '../../../Models/IProduct';
+import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
   imports: [CommonModule, FormsModule],
@@ -11,7 +12,7 @@ import { IProduct } from '../../../Models/IProduct';
 })
 export class EditProductModal implements OnInit
 {
-      ngOnInit(): void {
+      ngOnInit(): void { 
          console.log('EditProductModal initialized with product:', this.inputProduct());
          this.product = { ...this.inputProduct() }; // Create a copy of the input product to avoid direct mutation
       }

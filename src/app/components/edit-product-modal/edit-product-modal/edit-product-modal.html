@@ -19,7 +19,7 @@
 
     </div>
 
-    <form class="product-edit-form" (ngSubmit)="updateProduct()">
+    <form  #productForm="ngForm" class="product-edit-form" (ngSubmit)="updateProduct()">
 
       <div class="product-edit-grid">
 
@@ -58,8 +58,22 @@
             name="title"
             [(ngModel)]="product.title"
             required
+            pattern="[A-Za-z0-9\s]+"
+            #titleInput="ngModel"
           />
-
+          @if(titleInput.invalid && titleInput.touched)
+          {
+            @if(titleInput.errors?.['required'])
+            {
+              <p class="text-danger">
+                Product title is required</p>
+            }
+            @if(titleInput.errors?.['pattern'])
+            {
+              <p class="text-danger">
+                Product title can only contain letters, numbers, and spaces</p>
+            }
+         }
         </div>
 
         <div class="product-edit-group">
@@ -72,8 +86,23 @@
             name="category"
             [(ngModel)]="product.category"
             required
+            pattern="[A-Za-z\s]+"
+            #categoryInput="ngModel"
           />
+                @if(categoryInput.invalid && categoryInput.touched)
+                {
+                  @if(categoryInput.errors?.['required'])
+                  {
+                    <p class="text-danger">
+                      Category is required</p>
+                  }
+                  @if(categoryInput.errors?.['pattern'])
+                  {
+                    <p class="text-danger">
+                      Category can only contain letters and spaces</p>
+                  }
 
+                }
         </div>
 
         <div class="product-edit-group">
@@ -153,8 +182,9 @@
 
         <button
           type="submit"
-          class="product-edit-btn product-edit-submit">
-          
+          class="product-edit-btn product-edit-submit"
+          [disabled]="productForm.invalid">
+        
           Update Product
         </button>
 
