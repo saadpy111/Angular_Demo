@@ -149,6 +149,16 @@
       "price": 3,
       "categoryId": 0,
       "quantity": 3
+    },
+    {
+      "image": "",
+      "title": "sssssss",
+      "description": "ssssssssss",
+      "category": "",
+      "price": 22,
+      "categoryId": 0,
+      "quantity": 45,
+      "id": "UTke5C17uas"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
