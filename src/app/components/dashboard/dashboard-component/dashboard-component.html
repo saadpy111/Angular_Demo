@@ -68,7 +68,7 @@
 
             <td>
               <div class="actions">
-                <button class="edit-btn">Edit</button>
+                <button class="edit-btn" (click) = 'openEditProductModal(product.id.toString())'>Edit</button>
                 <button class="delete-btn" (click)="deleteProduct(product.id.toString())">Delete</button>
               </div>
             </td>
@@ -78,8 +78,15 @@
     </table>
   </div>
 
-    <!-- Modal -->
+  @if (showEditProductModal()) {
 
+    <app-edit-product-modal
+       [inputProduct] = 'editProduct'  
+       (close) = 'closeEditProductModal()'
+       (productUpdated) = 'updateProduct($event)'
+    />
+
+  }
   @if (showAddProductModal()) {
 
     <app-add-product-modal

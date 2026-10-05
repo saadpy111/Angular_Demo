@@ -1,0 +1,167 @@
+<div class="product-edit-overlay">
+
+  <div class="product-edit-dialog">
+
+    <div class="product-edit-header">
+
+      <div>
+        <h2>Edit Product</h2>
+        <p>Update the product information</p>
+      </div>
+
+      <button
+        type="button"
+        class="product-edit-close"
+        (click)="closeModal()"
+      >
+        &times;
+      </button>
+
+    </div>
+
+    <form class="product-edit-form" (ngSubmit)="updateProduct()">
+
+      <div class="product-edit-grid">
+
+        <div class="product-edit-group product-edit-full">
+
+          <label for="image">Image URL</label>
+
+          <div class="product-edit-image-wrapper">
+
+            <img
+              *ngIf="product.image"
+              [src]="product.image"
+              alt="Product image"
+              class="product-edit-preview"
+            />
+
+            <input
+              id="image"
+              type="text"
+              name="image"
+              [(ngModel)]="product.image"
+              placeholder="https://example.com/image.jpg"
+            />
+
+          </div>
+
+        </div>
+
+        <div class="product-edit-group">
+
+          <label for="title">Product Title</label>
+
+          <input
+            id="title"
+            type="text"
+            name="title"
+            [(ngModel)]="product.title"
+            required
+          />
+
+        </div>
+
+        <div class="product-edit-group">
+
+          <label for="category">Category</label>
+
+          <input
+            id="category"
+            type="text"
+            name="category"
+            [(ngModel)]="product.category"
+            required
+          />
+
+        </div>
+
+        <div class="product-edit-group">
+
+          <label for="categoryId">Category ID</label>
+
+          <input
+            id="categoryId"
+            type="number"
+            name="categoryId"
+            [(ngModel)]="product.categoryId"
+          />
+
+        </div>
+
+        <div class="product-edit-group">
+
+          <label for="price">Price</label>
+
+          <div class="product-edit-price">
+
+            <span>$</span>
+
+            <input
+              id="price"
+              type="number"
+              name="price"
+              [(ngModel)]="product.price"
+              min="0"
+              step="0.01"
+              required
+            />
+
+          </div>
+
+        </div>
+
+        <div class="product-edit-group">
+
+          <label for="quantity">Quantity</label>
+
+          <input
+            id="quantity"
+            type="number"
+            name="quantity"
+            [(ngModel)]="product.quantity"
+            min="0"
+            required
+          />
+
+        </div>
+
+        <div class="product-edit-group product-edit-full">
+
+          <label for="description">Description</label>
+
+          <textarea
+            id="description"
+            name="description"
+            [(ngModel)]="product.description"
+            rows="5">
+          </textarea>
+
+        </div>
+
+      </div>
+
+      <div class="product-edit-actions">
+
+        <button
+          type="button"
+          class="product-edit-btn product-edit-cancel"
+             (click)="closeModal()">
+          Cancel
+       
+        </button>
+
+        <button
+          type="submit"
+          class="product-edit-btn product-edit-submit">
+          
+          Update Product
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
